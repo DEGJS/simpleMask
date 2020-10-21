@@ -1,16 +1,15 @@
 const simpleMask = (containerEl, options = {}) => {
     const defaults = {
         format: null,
-        inputEl: null,
         inputSelector: null,
         maskPlaceholder: 'X',
-        onMaskCallback: null,
-        onFailedInputCallback: null,
         numeric: false,
         alphanumeric: false,
         customPattern: null,
         alphanumericPattern: /^[a-zA-Z0-9\.]*$/,
-        numberPattern: /[0-9\/]+/
+        numberPattern: /[0-9\/]+/,
+        onMaskCallback: null,
+        onFailedInputCallback: null,
     };
 
     const settings = { ...defaults, ...options };

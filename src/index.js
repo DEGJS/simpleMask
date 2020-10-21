@@ -6,7 +6,7 @@ const index = () => {
     simpleMask(container, {
         inputSelector: '.js-mask',
         format: 'XXX-XX-XXXX',
-        numeric: true
+        alphanumeric: true
     })
 }
 
