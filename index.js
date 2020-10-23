@@ -10,4 +10,4 @@ const init = () => {
     });
 };
 
-init()
+init();
