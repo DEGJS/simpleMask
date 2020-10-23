@@ -40,13 +40,13 @@ You can set the parameter ```maskPlaceholder``` to whatever you'd like, to chang
 Type: `string`
 The selector for the input that will be masked.
 
-Default: null
+Default: `null`
 
 ### format
 Type: `string`
 This will determine how the input value should be masked.
 
-Default: null
+Default: `null`
 
 ### maskPlaceholder
 Type: `string`
