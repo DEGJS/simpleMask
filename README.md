@@ -39,49 +39,59 @@ You can set the parameter ```maskPlaceholder``` to whatever you'd like, to chang
 ### inputSelector
 Type: `string`
 The selector for the input that will be masked.
+
 Default: null
 
 ### format
 Type: `string`
 This will determine how the input value should be masked.
+
 Default: null
 
 ### maskPlaceholder
 Type: `string`
 This will be used to determine what characters in the format `parameter` are expected to be user input.
+
 Default: `X`
 
 ### numeric
 Type: `boolean`
 Determines if users will be allowed to type numbers.
+
 Default: `false`
 
 ### alphanumeric
 Type: `boolean`
 Determines if users will be allowed to type numbers and letters
+
 Default: `false`
 
 ### alphanumericPattern
 Type: `RegExp`
 Determines the `RegExp` pattern for numbers and letters.
+
 Default: `/^[a-zA-Z0-9\.]*$/`
 
 ### numericPattern
 Type: `RegExp`
 Determines the `RegExp` pattern for numbers.
+
 Default: `[0-9\/]+/`
 
 ### customPattern
 Type: `RegExp`
 Allows for a custom `RegExp` pattern to be used to restrict user input in any way that you may need.
+
 Default: `[0-9\/]+/`
 
 ### onMaskCallback
 Type: `Function`
 Callback that fires when an input has been masked.
+
 Default: `null`
 
 ### onFailedInputCallback
 Type: `Function`
 Callback that fires when an a restricted key has been pressed
+
 Default: `null`
