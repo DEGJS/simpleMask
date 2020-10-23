@@ -32,7 +32,7 @@ When a user focuses the input again, the value will then revert back to its prev
 
 simpleMask looks at the charcters in the ```format``` parameter to know which characters to replace. By default,  ```X``` is used to represent expected user input.
 
-You can set the parameter ```maskPlaceholder``` to whatever you'd like to change it.
+You can set the parameter ```maskPlaceholder``` to whatever you'd like, to change it.
 
 ## Parameters
 
