@@ -61,19 +61,14 @@ Type: `boolean`
 Determines if users will be allowed to type numbers and letters
 Default: `false`
 
-### alphanumeric
-Type: `boolean`
-Determines if users will be allowed to type numbers and letters
-Default: `/^[a-zA-Z0-9\.]*$/`
-
 ### alphanumericPattern
 Type: `RegExp`
-Determines if users will be allowed to type numbers and letters.
+Determines the `RegExp` pattern for numbers and letters.
 Default: `/^[a-zA-Z0-9\.]*$/`
 
 ### numericPattern
 Type: `RegExp`
-Determines if users will be allowed to type numbers and letters.
+Determines the `RegExp` pattern for numbers.
 Default: `[0-9\/]+/`
 
 ### customPattern

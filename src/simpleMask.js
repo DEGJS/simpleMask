@@ -25,8 +25,6 @@ const simpleMask = (containerEl, options = {}) => {
 
     let inputEl;
     let output;
-    let builtValue;
-    let formatArrayOfCharacters;
     let arrayOfSpecialCharactersInFormat;
 
 
@@ -55,20 +53,20 @@ const simpleMask = (containerEl, options = {}) => {
     }
 
     const initPatternData = () => {
-        formatArrayOfCharacters = settings.format.split('');
+        const formatArrayOfCharacters = settings.format.split('');
         arrayOfSpecialCharactersInFormat = getSpecialCharacters(formatArrayOfCharacters);
     }
 
     const getSpecialCharacters = arrayOfCharacters => {
-        let object = [];
+        let specialCharactersArray = [];
 
         arrayOfCharacters.forEach((char, index) => {
             if (char !== settings.maskPlaceholder) {
-                object.push({ char, index });
+                specialCharactersArray.push({ char, index });
             }
         });
 
-        return object;
+        return specialCharactersArray;
     };
 
     const bindEvents = () => {
@@ -93,32 +91,22 @@ const simpleMask = (containerEl, options = {}) => {
     const setInputValue = (value) => inputEl.value = value;
 
     const getMaskValue = (arrayOfSpecialCharacters, maskMethod) => {
-        let maskedValue;
-
-        arrayOfSpecialCharacters.forEach(specialCharObject => {
-            if (specialCharObject.char) {
-                maskedValue = buildMaskedValue(inputEl.value, specialCharObject, maskMethod);
-            }
-        });
-
-        builtValue = null;
-        return maskedValue;
+        return arrayOfSpecialCharacters.reduce((maskedValue, specialCharObject) => {
+            maskedValue = buildMaskedValue(specialCharObject, maskMethod, maskedValue);
+            return maskedValue;
+        }, '');
     };
 
-    const buildMaskedValue = (inputValue, specialCharObject, maskMethod) => {
-        if (builtValue) {
-            inputValue = builtValue;
-        }
+    const buildMaskedValue = (specialCharObject, maskMethod, maskedValue) => {
+        const valueToBuildFrom =  maskedValue.length === 0 ? inputEl.value : maskedValue;
 
         if(maskMethod === maskMethods.forward ) {
-            output = inputValue.substring(specialCharObject.index, specialCharObject.char) + specialCharObject.char + inputValue.substring(specialCharObject.index);
+            output = valueToBuildFrom.substring(specialCharObject.index, specialCharObject.char) + specialCharObject.char + valueToBuildFrom.substring(specialCharObject.index);
         } else {
-            output = inputValue.split(specialCharObject.char).join("")
+            output = valueToBuildFrom.split(specialCharObject.char).join("")
         }
 
-        builtValue = output;
-
-        return builtValue;
+        return output;
     };
 
 
