@@ -1,0 +1,37 @@
+{
+    "name": "@degjs/simple-mask",
+    "version": "1.0.0",
+    "description": "Simple masking plugin",
+    "keywords": [
+        "masking",
+        "DEGJS"
+    ],
+    "author": {
+        "name": "Vequan Clark",
+        "email": "vclark@degdigital.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DEGJS/simpleMask.git"
+    },
+    "bugs": "https://github.com/DEGJS/simpleMask/issues",
+    "files": [
+        "src"
+    ],
+    "main": "src/simpleMask.js",
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.1.0",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/register": "^7.0.0",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^23.6.0",
+        "jest": "^23.6.0"
+    },
+    "scripts": {
+        "test": "jest"
+    }
+}

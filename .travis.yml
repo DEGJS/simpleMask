@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- node
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: npm
+  email: vequanclark@gotmail.com
+  api_key:
+    secure: bwehGs9wxGx+EMaJ8lI4dnUELs/oLibFlNNsL8+Xx8BMPq5D3Uf7Utjib+VhGOmq89iqVm4/9iz91UoP9kemap7ZJ1W2i0gHnkJ44ItC/FPKXD0mvJ8TwI7zCHrvvRPJ1asrlXi/5zu/EzJtiOdHWUulWn8mcLGFsZaew6vesAL4okoXbF4gEhOkP4L4VBhp23Jz74hyPCgIMRcwBZrnYzsPwEDs0nsX0Xvr00mf/gzjb80iKjWY2we5DtQAy+e5xrXQlifd2uxvPC020WNHupmCloHxVmG1KFuL0RgD8sKjOlI3k7BGj5d6yFTkIO6qz5K57K/3oWTO9MkMAmbcBGrA30MG0yt7VsrteeOx4eMUeFurbyTdlUCB7SemmIowkvS6WjYN8QtClVECvdoeAmNEqUKfzzm+d8lMUow7l93J3wSR45Fl1pazKbzxCRf0krp5CnmkAPa5vZpwm0zRpBLJ01SL49HgSn7t56oYN3jZXqbhwVWYTlsGlQftk4IRah1p/NERQ0vkYQ53X3YSBFLMBkDCbbEScxT2FyTg8SARxlWs1lNDzO4F7RjLLqQwiiI8jV3T6VQdyJ0dAwMyCyS1ARNfKHyj4fgmtJbrAIlC9ocisSpJQvMBFAN+ry++6zYEr18wMNcPU/pQjt393KwtlRpO7qzRyInvayOX2LY=
+  on:
+    branch: main
+    tags: true
+    repo: DEGJS/simpleMask
