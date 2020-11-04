@@ -75,6 +75,12 @@ const simpleMask = (containerEl, options = {}) => {
         inputEl.addEventListener('keypress', checkForInvalidKey);
     };
 
+    const unbindEvents = () => {
+        inputEl.removeEventListener('focusin', maskInput);
+        inputEl.removeEventListener('focusout', maskInput);
+        inputEl.removeEventListener('keypress', checkForInvalidKey);
+    }
+
     const maskInput = (e) => {
         if (inputEl.value.length !== 0 && inputEl.value.length >= getFormatLength() ) {
             const value = getMaskValue(arrayOfSpecialCharactersInFormat, getMaskMethod(e));
@@ -152,7 +158,15 @@ const simpleMask = (containerEl, options = {}) => {
         return keyPattern
     };
 
+    const destroy = () => {
+        unbindEvents();
+    }
+
     init();
+
+    return {
+        destroy
+    }
 };
 
 
