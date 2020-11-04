@@ -36,3 +36,33 @@ describe('Mask functionality', () => {
         expect(inputEl.value).toBe('111111111');
     });
 });
+
+describe('Destroy', () => {
+    let containerEl;
+    let inputEl;
+
+    beforeEach(() => {      
+        document.body.innerHTML = `
+            <div class="container">
+                <input value="111111111"></input>
+            </div>`;
+        containerEl = document.querySelector('.container');
+        inputEl = containerEl.querySelector('input');
+    });
+
+    it('Should remove event bindings', () => { 
+        const removeEventListenerSpy = jest.spyOn(inputEl, 'removeEventListener');
+
+        const simpleMaskInst = simpleMask(containerEl, {
+            inputSelector: 'input',
+            format: 'XXX-XX-XXXX',
+            numeric: true
+        });
+
+        simpleMaskInst.destroy();
+
+        expect(removeEventListenerSpy).toHaveBeenCalledTimes(3);
+
+        removeEventListenerSpy.mockRestore();
+    });
+});
