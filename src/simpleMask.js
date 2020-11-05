@@ -106,11 +106,11 @@ const simpleMask = (containerEl, options = {}) => {
     };
 
     /* Assume value is masked if it contains at least one special character */
-    const isValueMasked = value => {
-        return value.split('').some(char => 
-            arrayOfSpecialCharactersInFormat.some(specialChar => specialChar.char === char)
+    const isValueMasked = value =>
+        arrayOfSpecialCharactersInFormat.some(specialChar => 
+            value.indexOf(specialChar.char) > -1
         );
-    }
+
 
     const getMaskMethod = (e) => e.type === 'focusin' ? maskMethods.reverse : maskMethods.forward;
 

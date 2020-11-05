@@ -35,6 +35,12 @@ describe('Mask functionality', () => {
         inputEl.dispatchEvent(focusEvent);
         expect(inputEl.value).toBe('111111111');
     });
+
+    it('Should not mask an already-masked value', () => {
+        inputEl.dispatchEvent(new FocusEvent('focusout'));
+        inputEl.dispatchEvent(new Event('change'));
+        expect(inputEl.value).toBe('111-11-1111');
+    });
 });
 
 
