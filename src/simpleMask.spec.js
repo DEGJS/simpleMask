@@ -35,6 +35,54 @@ describe('Mask functionality', () => {
         inputEl.dispatchEvent(focusEvent);
         expect(inputEl.value).toBe('111111111');
     });
+
+    it('Should not mask an already-masked value', () => {
+        inputEl.dispatchEvent(new FocusEvent('focusout'));
+        inputEl.dispatchEvent(new Event('change'));
+        expect(inputEl.value).toBe('111-11-1111');
+    });
+});
+
+
+describe('Input validation', () => {
+    let containerEl;
+    let inputEl;
+
+    beforeEach(() => {      
+        document.body.innerHTML = `
+            <div class="container">
+                <input value=""></input>
+            </div>`;
+        containerEl = document.querySelector('.container');
+        inputEl = containerEl.querySelector('input');
+    });
+
+    it('Should remove invalid characters after input', () => {
+        simpleMask(containerEl, {
+            inputSelector: 'input',
+            format: 'XXX-XXX-XXXX',
+            numeric: true
+        });
+
+        inputEl.value = 'abc123';
+        inputEl.dispatchEvent(new Event('input'));
+
+        expect(inputEl.value).toBe('123');
+    });
+
+    it('Should trim the length of the input value when input changes', () => {
+        simpleMask(containerEl, {
+            inputSelector: 'input',
+            format: 'XXX-XXX-XXXX',
+            numeric: true
+        });
+
+        inputEl.value = 'abc1234567abc12345abc';
+        inputEl.dispatchEvent(new Event('input'));
+
+        expect(inputEl.value).toBe('1234567123');
+    });
+
 });
 
 describe('Destroy', () => {
@@ -55,13 +103,13 @@ describe('Destroy', () => {
 
         const simpleMaskInst = simpleMask(containerEl, {
             inputSelector: 'input',
-            format: 'XXX-XX-XXXX',
+            format: 'XXX-XXX-XXXX',
             numeric: true
         });
 
         simpleMaskInst.destroy();
 
-        expect(removeEventListenerSpy).toHaveBeenCalledTimes(3);
+        expect(removeEventListenerSpy).toHaveBeenCalledTimes(4);
 
         removeEventListenerSpy.mockRestore();
     });

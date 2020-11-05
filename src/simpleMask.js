@@ -7,7 +7,7 @@ const simpleMask = (containerEl, options = {}) => {
         alphanumeric: false,
         customPattern: null,
         alphanumericPattern: /^[a-zA-Z0-9\.]*$/,
-        numberPattern: /[0-9\/]+/,
+        numberPattern: /[\d]+/,
         onMaskCallback: null,
         onFailedInputCallback: null,
     };
@@ -65,25 +65,38 @@ const simpleMask = (containerEl, options = {}) => {
                 specialCharactersArray.push({ char, index });
             }
         });
-
+       
         return specialCharactersArray;
     };
 
     const bindEvents = () => {
         inputEl.addEventListener('focusin', maskInput);
         inputEl.addEventListener('focusout', maskInput);
-        inputEl.addEventListener('keypress', checkForInvalidKey);
+        inputEl.addEventListener('change', maskInput);
+        inputEl.addEventListener('input', onInput);
     };
 
     const unbindEvents = () => {
         inputEl.removeEventListener('focusin', maskInput);
         inputEl.removeEventListener('focusout', maskInput);
-        inputEl.removeEventListener('keypress', checkForInvalidKey);
+        inputEl.removeEventListener('change', maskInput);
+        inputEl.removeEventListener('input', onInput);
     }
 
     const maskInput = (e) => {
-        if (inputEl.value.length !== 0 && inputEl.value.length >= getFormatLength() ) {
-            const value = getMaskValue(arrayOfSpecialCharactersInFormat, getMaskMethod(e));
+        const maskMethod = getMaskMethod(e);
+
+        /* 
+            Perform masking/unmasking if:
+            1) value is not empty,
+            2) value meets minimum length of format, and
+            3) value will be unmasked or value will be masked and is not already masked
+        */
+        if (inputEl.value.length !== 0 && 
+            inputEl.value.length >= getFormatLength() && 
+            (maskMethod !== maskMethods.forward || !isValueMasked(inputEl.value))
+        ) {
+            const value = getMaskValue(arrayOfSpecialCharactersInFormat, maskMethod);
             setInputValue(value);
 
             if (settings.onMaskCallback) {
@@ -91,6 +104,13 @@ const simpleMask = (containerEl, options = {}) => {
             }
         }
     };
+
+    /* Assume value is masked if it contains at least one special character */
+    const isValueMasked = value =>
+        arrayOfSpecialCharactersInFormat.some(specialChar => 
+            value.indexOf(specialChar.char) > -1
+        );
+
 
     const getMaskMethod = (e) => e.type === 'focusin' ? maskMethods.reverse : maskMethods.forward;
 
@@ -115,16 +135,27 @@ const simpleMask = (containerEl, options = {}) => {
         return output;
     };
 
+    const onInput = () => {
+        const validValue = removeInvalidCharacters(inputEl.value, getKeyPattern(), getFormatLength());
 
-    const checkForInvalidKey = e => {
-        if (inputEl.value.length === getFormatLength() || !keyMatchesPattern(e.key)) {
-            e.preventDefault();
+        if(inputEl.value !== validValue) {
+            inputEl.value = validValue;
 
             if(settings.onFailedInputCallback) {
                 settings.onFailedInputCallback(inputEl.value);
             }
         }
-    };
+    }
+
+    const removeInvalidCharacters = (value, pattern, maxLength) => {
+        return value.split('').reduce((newValue, char) => {
+            if(newValue.length < maxLength && pattern.test(char)) {
+                newValue += char;
+            }
+
+            return newValue;
+        }, '');
+    }
 
     const getFormatLength = () => {
         let formatLength;
@@ -137,12 +168,6 @@ const simpleMask = (containerEl, options = {}) => {
 
         return formatLength;
     };
-
-    const keyMatchesPattern = (pressedKey) => {
-        const keyPattern = getKeyPattern();
-
-        return keyPattern.test(pressedKey);
-    }
 
     const getKeyPattern = () => {
         let keyPattern;
