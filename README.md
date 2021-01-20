@@ -1,4 +1,5 @@
 # simpleMask
+![Run Tests](https://github.com/DEGJS/expander/workflows/Run%20Tests/badge.svg)
 simpleMask is a masking plugin that leverages the focusout and focusin events to provide a more accessible, less intrusive masking experience.
 
 ## Install
